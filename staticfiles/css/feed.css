@@ -1,0 +1,128 @@
+.feedcreate_background, .feedupdate_background, .feeddelete_background, .profile_background{
+    padding:10px;
+    height:110vh;
+    background-image: url('/static/images/VChat-login-background.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.feedcreate_card, .feedupdate_card, .feeddelete_card, .profile_card{
+    background-color: RGBA(0,0,0,0.5);
+    color:white;
+    width:350px;
+    padding: 10px;
+}
+.feeddelete_card{
+    text-align: center;
+}
+
+.feedcreate_card h2, .feedupdate_card h2{
+    text-align: center;
+}
+
+.feedcreate_card form input, .feedcreate_card form select, .feedupdate_card form input,.feedupdate_card form select, .profile_card input, .profile_card select{
+    width:100%;
+}
+
+.feedcreate_card h3, .feedupdate_card h3{
+    margin:0px;
+}
+
+.feedcreate_card form button, .feedupdate_card form button, .profile_card button{
+    width:100%;
+    background-color: green;
+    color: white;
+    border:1px solid white;
+    height:40px;
+    border-radius: 10px;
+}
+
+.feeddelete_card form button{
+    background-color: green;
+    color: white;
+    border:1px solid white;
+    height:40px;
+    width:150px;
+    border-radius: 10px;
+    
+}
+
+.feedcreate_card a, .feedupdate_card a, .feeddelete_card a{
+    text-align: end;
+    text-decoration: none;
+    color: white;
+}
+
+.feedcreate_card a:hover, .feedupdate_card a:hover, .feeddelete_card a:hover{
+    text-decoration: underline;
+    color: white;
+}
+
+.feedview_background{
+    padding: 10px;
+    min-height:90vh;
+    background-image: url('/static/images/VChat-login-background.png');
+}
+
+.feedview_grid{
+    margin:10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:15px; 
+}
+
+.feedview_gridelement{
+    border:1px solid black;
+    box-shadow: 0px 0px 2px black;
+    background-color: white;
+}
+
+.feedview_gridelement:hover{
+    transform:translateX(10px);
+}
+
+.feedview_gridelement p{
+    margin:0px;
+    padding:5px;
+    text-align: center;
+    font-weight: bold;
+    height:30px;
+}
+
+.feedview_gridelement div{
+    display: flex;
+    justify-content: space-around;
+}
+
+.feedview_gridelement div a,.feeddelete_card form button{
+    text-decoration: none;
+    color: white;
+    background-color: green;
+    border:1px solid black;
+    width:50px;
+    height:20px;
+    text-align: center;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.feedview_gridelement div a:hover,.feeddelete_card form button:hover{
+    color: green;
+    background-color: white;
+    font-weight: bold;
+}
+
+@media (max-width : 700px) {
+    .feedview_grid{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width : 500px) {
+    .feedview_grid{
+        grid-template-columns: 1fr;
+    }
+}
