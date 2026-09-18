@@ -1,0 +1,20 @@
+{% extends 'dashboard.html' %}
+{% block content2 %}
+<div class="profile_background">
+    <div class="profile_card">
+        <form method="POST">
+            {% csrf_token %}
+            <!-- Name:<input type="text" name="name" value="{{profile.username}}" disabled><br><br>
+            Email:<input type="email" name="email" value="{{profile.email}}"><br><br>
+            DoB:<input type="date" name="dob" value="{{profile.dob|date:'Y-m-d'}}"><br><br>
+            Gender:<select name="gender">
+                    <option {% if profile.gender == "FEMALE" %}selected{% endif %}>FEMALE</option>
+                    <option {% if profile.gender == "MALE" %}selected{% endif %}>MALE</option>
+                </select><br><br>
+            <button type="submit">Save</button> -->
+            {{form.as_p}}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+{%endblock%}

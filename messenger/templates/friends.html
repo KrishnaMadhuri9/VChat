@@ -1,0 +1,23 @@
+{% extends 'dashboard.html' %}
+
+{% block content2 %}
+<div class="friends_page">
+    <h2>My Friends</h2><br><br>
+    {% for friend in friends %}
+        <div class="friend_card">
+            <div class="friend_information">
+                <h4>
+                    {{ friend.username }}
+                </h4>
+            </div>
+            <div class="friend_actions">
+                <a href="{% url 'chat' friend.id %}">
+                    <button>Message</button>
+                </a>
+            </div>
+        </div>
+    {% empty %}
+        <p>You don't have any accepted friends yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

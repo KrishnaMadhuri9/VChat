@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static  %}
+{% block content %}
+<div class="home_background">
+    <img src="{% static 'images/VChat-home-background.png' %}" >
+    <div class="home_card">
+        <h2>VChat-<i>We Connect</i></h2>
+        <p>Chat, Post, Follow</p>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+{% endblock %}

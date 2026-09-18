@@ -1,0 +1,32 @@
+{% extends 'dashboard.html' %}
+{% block content2 %}
+    <div class="feedcreate_background">
+        <div class="feedcreate_card">
+            <h2>Share a Story</h2><br>
+            {% for message in messages %}
+                <div class="message.tag" style="font-style: italic;">{{message}}</div><br>
+            {% endfor %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                Title : <input type="text" name="title"><br><br>
+                Photo : <input type="file" name="image"><br><br>
+                <h3>Would you like to enable:</h3><br>
+                Like : <select name="like">
+                    <option name="NO">NO</option>
+                    <option name="YES">YES</option>
+                </select><br><br>
+                Comment : <select name="comment">
+                    <option name="NO">NO</option>
+                    <option name="YES">YES</option>
+                </select><br><br>
+                Share : <select name="share">
+                    <option name="NO">NO</option>
+                    <option name="YES">YES</option>
+                </select><br><br><br>
+                <button type="submit">Post</button>
+            </form>
+            <br>
+            <a href="{% url 'dashboard' %}">Back</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'dashboard.html' %}
+{% block content2 %}
+    <div class="feeddelete_background">
+        <div class="feeddelete_card">
+            <h2>Are you sure you want to delete "{{feed.title}}"?</h2><br><br>
+            {% if feed.image %}
+                Photo : <img src="{{feed.image.url}}" width="200px"><br><br>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit">Delete</button><br><br>
+            </form>
+            <a href="{% url 'viewfeed' %}">Cancel</a>
+        </div>
+    </div>
+{% endblock %}

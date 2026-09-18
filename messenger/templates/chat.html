@@ -1,0 +1,29 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% block content2 %}
+<div class="chat_page">
+    <!-- CHAT HEADER -->
+    <div class="chat_header">
+        <h3>{{ friend.username }}</h3>
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="messageList" class="message_list">
+    </div>
+
+    <!-- MESSAGE INPUT -->
+    <div class="message_input_area">
+        <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off">
+        <button type="button" onclick="sendMessage()">
+            Send
+        </button>
+    </div>
+</div>
+<script>
+    const friendId = {{ friend.id }};
+    const currentUserId = {{ request.session.id }};
+</script>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/messenger.js' %}"></script>
+{% endblock %}

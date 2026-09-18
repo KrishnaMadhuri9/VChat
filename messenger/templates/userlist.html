@@ -1,0 +1,17 @@
+{% extends 'dashboard.html' %}
+{% block content2 %}
+    {% for user in userlist %}
+    <div class="userlist_card">
+        <h6>{{user.username}}</h6>
+        {% if user.request_status == "Follow" %}
+            <button onclick="friendrequest({{ user.id }},this)">Follow</button>
+        {% elif user.request_status == "PENDING" %}
+            <button disabled>Requested</button>
+        {% elif user.request_status == "ACCEPTED" %}
+            <button disabled>Friends</button>   
+        {% elif user.request_status == "REJECTED" %}
+            <button onclick="friendrequest({{ user.id }},this)">Follow</button>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% endblock %}

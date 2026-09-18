@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VChat</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/feed.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messenger.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-styling">
+            {% block header %}
+                <img src="{% static 'images/VChat_Icon.png' %}" width="40px" height="40px" class="icon_styling">
+                <h2 class="header-heading">VChat-Connecting World</h2>
+                <div class="hamburger_options">
+                    <ul class="header-ul">
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Signup</a></li>
+                    </ul>
+                    <div class="hamburger_styling">
+                        <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
+                        <div class="hamburger-dropdown" id="hamburgerDropdown">
+                            <a href="{% url 'login' %}">Login</a>
+                            <a href="{% url 'register' %}">Signup</a>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </header>
+    <main>
+        <div class="main-background">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    {% block footer %}
+    <footer class="footer_styling">
+        <div class="footer_row">
+            <div class="footer_column">
+                <h3>Quick Links</h3>
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Signup</a>
+                <h3>Support</h3>
+                <a>About Us</a>
+                <a>Privacy Policy</a>
+                <a>Terms and Conditions</a>
+            </div>
+            <hr>
+            <!-- <div class="footer_column">
+                <h3>Support</h3>
+                <a>About Us</a>
+                <a>Privacy Policy</a>
+                <a>Terms and Conditions</a>
+            </div>
+            <hr> -->
+            <div class="footer_column">
+                <h3>Contact us</h3>
+                <p>Address: Kochi, Ernakulam</p>
+                <p>Contact: +91-987654321</p>
+                <p>Mail: support@vchat.com</p>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <p><i class="fa-regular fa-copyright"></i> 2026 VChat. All Copywrites Reserved</p>
+        </div>
+    </footer>
+    {% endblock %}
+    {% block scripts %}
+        <script src="{% static 'js/feed_activities.js' %}"></script>
+        <script src="{% static 'js/messenger.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

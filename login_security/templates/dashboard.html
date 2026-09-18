@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+    <img src="{% static 'images/VChat_Icon.png' %}" width="40px" height="40px" class="icon_styling">
+    <h2 class="header-heading">{{user}}</h2>
+    <div class="hamburger_options">
+        <ul class="header-ul">
+            <li><a href="{% url 'dashboard' %}">Home</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+        <div class="hamburger_styling">
+            <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
+            <div class="hamburger-dropdown" id="hamburgerDropdown">
+                <a href="{% url 'dashboard' %}">Home</a>
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="/messenger/list/">Follow Friend</a>
+                <a href="/feeds/add/">Share a Story</a>
+                <a href="/feeds/">Posts</a>
+                <a href="{% url 'friendslist' %}">Friends</a>
+                <button id="notificationButton" onclick="openNotificationModal()">Notifications</button>
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+<div class="dashboard_background">
+    <div class="dashboard_options">
+        <p><a href="/messenger/list/">Follow Friend</a></p>
+        <p><a href="/feeds/add/">Share a Story</a></p>
+        <p><a href="/feeds/">Posts</a></p>
+        <p><a href="{% url 'friendslist' %}">Friends</a></p>
+        <p><button id="notificationButton" onclick="openNotificationModal()">Notifications</button></p>
+    </div>
+    <div class="dashboard_feeds">
+        {% block content2 %}
+            {% for feed in feeds %}
+                <div>
+                    {% if feed.image %}
+                        <img src="../static/images/VChat_Icon.png" class="feed_icon">
+                        {% if feed.original_feed %}
+                            <p class="shared-text"><b>{{feed.user_id}}</b> shared <b>{{feed.original_feed.user_id}}</b>'s post</p>
+                        {%else%}
+                            <p class="feed_name">{{feed.user_id}}</p>
+                        {% endif %}
+                        <img src="{{feed.image.url}}"  class="feed_image">
+                    {% endif %}
+                    {% if feed.like == 'YES' %}
+                        <button class="btn_icon" onclick="likefunction( {{ feed.id }} )"><i class="fa-regular fa-thumbs-up" id="likeIcon{{feed.id}}" ></i></button>
+                        <p class="btn_status" id="likecount{{feed.id}}">{% if feed.likecount %}{{feed.likecount}}{% else %}Like{%endif%}</p>
+                    {% endif %}
+                    {% if feed.comment == 'YES' %}
+                        <button class="btn_icon" onclick="openCommentModal({{ feed.id }})"><i class="fa-regular fa-comment"></i></button>
+                        <p class="btn_status" id="commentcount{{feed.id}}">{% if feed.commentcount %}{{feed.commentcount}}{% else %}Comment{%endif%}</p>
+                    {% endif %}
+                    {% if feed.share == 'YES' %}
+                        <button class="btn_icon" onclick="shareFeed({{feed.id}})"><i class="fa-solid fa-share-nodes"></i></button>
+                        <p class="btn_status" id="sharecount{{feed.id}}">{% if feed.sharecount %}{{feed.sharecount}}{% else %}Share{%endif%}</p>
+                    {% endif %}
+                    <br>
+                    <p class="feed_name">{{feed.user_id}}:<p class="feed_title">{{feed.title}}</p></p>
+                    <br>
+                </div>
+            {% endfor %}
+            <div id="commentModal" class="comment-modal">
+                <div class="comment-box">
+                    <div class="comment-header">
+                        <h3>Comments</h3>
+                        <span onclick="closeCommentModal()">&times</span>
+                    </div>
+                    <div id="commentList">
+                    </div>
+                    <textarea id="commentText" rows="3" placeholder="Write a comment..."></textarea>
+                    <button onclick="postComment()">Post</button>
+                </div>
+            </div>
+        {% endblock %}
+        <div id="notificationModal" class="notification_modal">
+            <div class="notification_modal_content">
+                <div class="notification_header">
+                    <h3>Notifications</h3>
+                    <button onclick="closeNotificationModal()">&times;</button>
+                </div>
+                <div id="notificationList">
+                    {% for notification in notifications %}
+                        <div class="notification_card" id="notification-{{notification.id}}">
+                            <p>{{notification.message}}</p>
+                            <small>{{notification.created_at}}</small>
+
+                            {% if notification.friend_request.status == "PENDING"%}
+                                <div class="notification_buttons">
+                                    <button onclick="acceptRequest( {{ notification.id }},this)">Accept</button>
+                                    <button onclick="rejectRequest( {{ notification.id }},this)">Reject</button>
+                                </div>
+                            {% elif notification.friend_request.status == "ACCEPTED" %}
+                                <p>Friend request accepted</p>
+                            {% elif notification.friend_request.status == "REJECTED" %}
+                                <p>Friend request rejected</p>
+                            {% endif %}
+                        </div>
+                    {% empty %}
+                        <p id="noNotifications">No notifications</p>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/feed_activities.js' %}"></script>
+    <script src="{% static 'js/messenger.js' %}"></script>
+{% endblock %}

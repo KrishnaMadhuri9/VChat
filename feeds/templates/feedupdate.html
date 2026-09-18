@@ -1,0 +1,50 @@
+{% extends 'dashboard.html' %}
+{% block content2 %}
+    <div class="feedupdate_background">
+        <div class="feedupdate_card">
+            <h2>Update Post</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                Title : <input type="text" name="title" value="{{feed.title}}"><br><br>
+                {% if feed.image %}
+                Photo : <img src="{{feed.image.url}}" width="200px"><br>
+                {%endif%}
+                <input type="file" name="image" value="{{feed.image.url}}">
+                <br>
+                <h3>Would you like to enable:</h3><br>
+                Like : <select name="like">
+                    <option name="YES"
+                    {% if feed.like == "YES" %}
+                    selected
+                    {% endif %}>YES</option>
+                    <option name="NO"
+                    {% if feed.like == "NO" %}
+                    selected
+                    {% endif %}>NO</option>
+                </select><br><br>
+                Comment : <select name="comment">
+                    <option name="YES"
+                    {% if feed.comment == "YES" %}
+                    selected
+                    {% endif %}>YES</option>
+                    <option name="NO"
+                    {% if feed.comment == "NO" %}
+                    selected
+                    {% endif %}>NO</option>
+                </select><br><br>
+                Share : <select name="share">
+                    <option name="YES"
+                    {% if feed.share == "YES" %}
+                    selected
+                    {% endif %}>YES</option>
+                    <option name="NO"
+                    {% if feed.share == "NO" %}
+                    selected
+                    {% endif %}>NO</option>
+                </select><br><br>
+                <button type="submit">Post</button><br><br>
+            </form>
+            <a href="/feeds/">Back</a>
+        </div>
+    </div>
+{% endblock %}
