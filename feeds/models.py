@@ -21,7 +21,7 @@ class ImageFeed(models.Model):
 class TextFeed(models.Model):
     user_id=models.CharField(max_length=50)
     text=models.TextField()
-    background=models.CharField(default='black')
+    background=models.CharField(max_length=100)
     like=models.BooleanField(default=False)
     comment=models.BooleanField(default=False)
     share=models.BooleanField(default=False)

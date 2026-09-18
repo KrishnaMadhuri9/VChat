@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3(s2ykvx#c=c+7v^_2h47o)-_+r04@pab&j5mbx7+k_zrtzk#v'
+# SECRET_KEY = 'django-insecure-3(s2ykvx#c=c+7v^_2h47o)-_+r04@pab&j5mbx7+k_zrtzk#v'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG=os.environ.get('DEBUG','False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -76,15 +83,20 @@ WSGI_APPLICATION = 'VChat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'VChat_database',
+#         'USER': 'postgres',
+#         'PASSWORD':'root',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'VChat_database',
-        'USER': 'postgres',
-        'PASSWORD':'root',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
 
 
@@ -122,8 +134,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-import os
-
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS=[BASE_DIR/'feeds/static/',
@@ -132,8 +142,8 @@ STATICFILES_DIRS=[BASE_DIR/'feeds/static/',
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL='media/'
+MEDIA_URL='/media/'
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_ROOT=BASE_DIR/ 'media'
 
 LOGIN_URL='/login/'
